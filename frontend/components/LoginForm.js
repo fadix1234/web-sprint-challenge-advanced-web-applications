@@ -16,6 +16,7 @@ export default function LoginForm(props) {
 
   const onSubmit = evt => {
     evt.preventDefault()
+    props.login(values)
     // ✨ implement
   }
 
@@ -25,7 +26,8 @@ export default function LoginForm(props) {
     // trimmed password must be >= 8 for
     // the button to become enabled
   }
-
+   
+   //console.log(values, 'ORANGE')
   return (
     <form id="loginForm" onSubmit={onSubmit}>
       <h2>Login</h2>
