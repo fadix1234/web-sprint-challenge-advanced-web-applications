@@ -66,12 +66,17 @@ export default function App() {
     .then(res => {
       console.log(res, 'TOMATO')
       setArticles(res.data.articles)
-      console.log(articles,'CHERRY')
       setMessage(res.data.message)
       setSpinnerOn(false)
     
+    }) 
+    .catch(err => { 
+      if (err.response.status === 401) {
+      redirectToLogin()
+      }
+      setSpinnerOn(false)
+      console.log (err.response.status)
     })
-    .catch(err => console.log (err))
     
     // ✨ implement
     // We should flush the message state, turn on the spinner
@@ -82,6 +87,7 @@ export default function App() {
     // if it's a 401 the token might have gone bad, and we should redirect to login.
     // Don't forget to turn off the spinner!
   }
+  console.log(articles,'CHERRY')
 
   const postArticle = article => {
     setMessage('')
@@ -127,6 +133,7 @@ export default function App() {
             <>
               <ArticleForm  />
               <Articles getArticles = {getArticles} 
+              articles = {articles}
               redirectToLogin = {redirectToLogin}/>
             </>
           } />

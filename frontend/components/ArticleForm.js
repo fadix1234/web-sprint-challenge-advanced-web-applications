@@ -21,6 +21,8 @@ export default function ArticleForm(props) {
 
   const onSubmit = evt => {
     evt.preventDefault()
+    props.postArticle(values)
+
     
     // ✨ implement
     // We must submit a new post or update an existing one,

@@ -26,9 +26,9 @@ export default function Articles(props) {
     <div className="articles">
       <h2>Articles</h2>
       {
-        ![].length
+        !props.articles.length
           ? 'No articles yet'
-          : [].map(art => {
+          : props.articles.map(art => {
             return (
               <div className="article" key={art.article_id}>
                 <div>
