@@ -8,13 +8,13 @@ export default function Articles(props) {
 
   // ✨ implement conditional logic: if no token exists
   // we should render a Navigate to login screen (React Router v.6)
-  const storage = localStorage.getItem('token')
-  console.log(storage)
-  if (storage === null)
-  props.redirectToLogin()
+   const storage = localStorage.getItem('token')
+   console.log(storage)
+   if (storage === null)
+   props.redirectToLogin()
 
   useEffect(() => {
-    props.getArticles()
+  props.getArticles()
 
 
     // ✨ grab the articles here, on first render only

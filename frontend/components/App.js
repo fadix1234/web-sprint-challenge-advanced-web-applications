@@ -65,6 +65,9 @@ export default function App() {
     axiosWithAuth().get('http://localhost:9000/api/articles')
     .then(res => {
       console.log(res, 'TOMATO')
+      setArticles(res.data.articles)
+      console.log(articles,'CHERRY')
+      setMessage(res.data.message)
       setSpinnerOn(false)
     
     })
@@ -81,6 +84,16 @@ export default function App() {
   }
 
   const postArticle = article => {
+    setMessage('')
+    setSpinnerOn(true)
+    axiosWithAuth().post('http://localhost:9000/api/articles')
+    .then(res => {
+      console.log(res, 'GRAPEFRUIT')
+      setSpinnerOn(false)
+      
+    
+    })
+    .catch(err => console.log (err))
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
