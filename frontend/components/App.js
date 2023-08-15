@@ -23,7 +23,7 @@ export default function App() {
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate()
   const redirectToLogin = () => { navigate("/") }
-  const redirectToArticles = () => { /* ✨ implement */ }
+  const redirectToArticles = () => { navigate("/articles")}
 
   const logout = () => {
     // ✨ implement
@@ -92,14 +92,17 @@ export default function App() {
   const postArticle = article => {
     setMessage('')
     setSpinnerOn(true)
-    axiosWithAuth().post('http://localhost:9000/api/articles')
+    axiosWithAuth().post('http://localhost:9000/api/articles',article)
     .then(res => {
+      setCurrentArticleId(res.data.article)
+      setMessage(res.data.message)
       console.log(res, 'GRAPEFRUIT')
       setSpinnerOn(false)
       
     
     })
     .catch(err => console.log (err))
+    setSpinnerOn(false)
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
@@ -131,10 +134,14 @@ export default function App() {
           <Route path="/" element={<LoginForm login = {login} logout= {logout}/>} />
           <Route path="articles" element={
             <>
-              <ArticleForm  />
+              <ArticleForm postArticle = {postArticle}
+              articles = {articles}
+              currentArticleId = {currentArticleId}
+              />
               <Articles getArticles = {getArticles} 
               articles = {articles}
-              redirectToLogin = {redirectToLogin}/>
+              redirectToLogin = {redirectToLogin}
+               />
             </>
           } />
         </Routes>
