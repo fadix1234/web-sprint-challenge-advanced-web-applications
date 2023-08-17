@@ -94,9 +94,13 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().post('http://localhost:9000/api/articles',article)
     .then(res => {
-      setCurrentArticleId(res.data.article)
-      setMessage(res.data.message)
       console.log(res, 'GRAPEFRUIT')
+      const newArticles = articles
+      newArticles.push(res.data.article)
+      console.log(articles,'HI')
+
+      setArticles(newArticles)
+      setMessage(res.data.message)
       setSpinnerOn(false)
       
     
@@ -110,14 +114,26 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
+
+    axiosWithAuth().put('http://localhost:9000/api/articles/:article_id', article)
+    .then(res => {
+    //
+    // click edit it populates form values
+    //cancel edit button clears form values 
+    //submit button puts(updates)  the Articles
+    //turns spinner on
+    //clears form values
+    //turn spinner off
+    //sets message Nice update
+
     // ✨ implement
     // You got this!
-  }
+  })}
 
   const deleteArticle = article_id => {
     // ✨ implement
   }
-
+  console.log(currentArticleId,'HEY')
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <>
@@ -141,6 +157,7 @@ export default function App() {
               <Articles getArticles = {getArticles} 
               articles = {articles}
               redirectToLogin = {redirectToLogin}
+              setCurrentArticleId={setCurrentArticleId}
                />
             </>
           } />
