@@ -114,14 +114,13 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-     const currentArticleId = articles
-     currentArticleId.push(res.data.article)
-     setCurrentArticleId(article_id)
-    axiosWithAuth().put('http://localhost:9000/api/articles/:article_id', article)
+    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
+      console.log(res,'UPDATE SUCCESSFUL') 
+     setCurrentArticleId(res.data.article.article_id)
     //
-    // click edit it populates form values
-    //cancel edit button clears form values 
+    //   click edit it populates form values
+    //   cancel edit button clears form values 
     //submit button puts(updates)  the Articles
     //turns spinner on
     //clears form values
@@ -130,7 +129,10 @@ export default function App() {
 
     // ✨ implement
     // You got this!
-  })}
+  })
+  .catch(err => console.log (err))
+  }
+  
 
   const deleteArticle = article_id => {
     // ✨ implement
@@ -155,6 +157,7 @@ export default function App() {
               <ArticleForm postArticle = {postArticle}
               articles = {articles}
               currentArticleId = {currentArticleId}
+              updateArticle = {updateArticle}
               
               />
               <Articles getArticles = {getArticles} 
