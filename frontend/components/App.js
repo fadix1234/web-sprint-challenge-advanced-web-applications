@@ -114,7 +114,9 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-
+     const currentArticleId = articles
+     currentArticleId.push(res.data.article)
+     setCurrentArticleId(article_id)
     axiosWithAuth().put('http://localhost:9000/api/articles/:article_id', article)
     .then(res => {
     //
@@ -153,6 +155,7 @@ export default function App() {
               <ArticleForm postArticle = {postArticle}
               articles = {articles}
               currentArticleId = {currentArticleId}
+              
               />
               <Articles getArticles = {getArticles} 
               articles = {articles}
