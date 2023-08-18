@@ -114,9 +114,10 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
+    console.log(updateArticle,'UPDATE SUCCESSFUL') 
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
     .then(res => {
-      console.log(res,'UPDATE SUCCESSFUL') 
+     console.log(updateArticle,'UPDATE SUCCESSFUL') 
      setCurrentArticleId(res.data.article.article_id)
     //
     //   click edit it populates form values
