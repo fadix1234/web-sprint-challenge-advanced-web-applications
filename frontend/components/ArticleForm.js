@@ -20,12 +20,7 @@ export default function ArticleForm(props) {
       setValues(initialFormValues)
     }
     
-    
   
-      
-
-    
-    
     // ✨ implement
     // Every time the `currentArticle` prop changes, we should check it for truthiness:
     // if it's truthy, we should set its title, text and topic into the corresponding
@@ -41,10 +36,14 @@ export default function ArticleForm(props) {
   }
 
   const onSubmit = evt => {
-
+    evt.preventDefault()
+    //console.log('title',evt.target[0].value)
+    //console.log('text',evt.target[1].value)
+    // console.log('topic',evt.target[2].value)
+    //console.log(props.currentArticleId.article_id)
     if (props.currentArticleId) {
-   
-      props.updateArticle(props.currentArticleId.id, values);
+      //props.updateArticle(props.currentArticleId, article )
+      props.updateArticle({article_id: props.currentArticleId.article_id, article: values })
     } else {
      
       props.postArticle(values);
@@ -71,7 +70,7 @@ export default function ArticleForm(props) {
     // ✨ fix the JSX: make the heading display either "Edit" or "Create"
     // and replace Function.prototype with the correct function
     <form id="form" onSubmit={onSubmit}>
-      <h2>Create Article</h2>
+      <h2>{!props.currentArticle ? 'Create Article': 'Edit'}</h2>
       <input
         maxLength={50}
         onChange={onChange}

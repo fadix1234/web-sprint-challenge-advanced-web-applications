@@ -43,14 +43,14 @@ export default function App() {
     setSpinnerOn(true)
     axios.post('http://localhost:9000/api/login', payload)
     .then(res => {
-      console.log(res, 'GRAPE')
+      //console.log(res, 'GRAPE')
      localStorage.setItem('token', res.data.token);
      setMessage(res.data.message)
      navigate('/articles')
      setSpinnerOn(false)
     })
     .catch(err => console.log (err))
-    console.log(payload, 'APPLE');
+    //console.log(payload, 'APPLE');
     // ✨ implement
     // We should flush the message state, turn on the spinner
     // and launch a request to the proper endpoint.
@@ -64,7 +64,7 @@ export default function App() {
     setSpinnerOn(true)
     axiosWithAuth().get('http://localhost:9000/api/articles')
     .then(res => {
-      console.log(res, 'TOMATO')
+      //console.log(res, 'TOMATO')
       setArticles(res.data.articles)
       setMessage(res.data.message)
       setSpinnerOn(false)
@@ -87,14 +87,14 @@ export default function App() {
     // if it's a 401 the token might have gone bad, and we should redirect to login.
     // Don't forget to turn off the spinner!
   }
-  console.log(articles,'CHERRY')
+  //console.log(articles,'CHERRY')
 
   const postArticle = article => {
     setMessage('')
     setSpinnerOn(true)
     axiosWithAuth().post('http://localhost:9000/api/articles',article)
     .then(res => {
-      console.log(res, 'GRAPEFRUIT')
+      //console.log(res, 'GRAPEFRUIT')
       const newArticles = articles
       newArticles.push(res.data.article)
       console.log(articles,'HI')
@@ -114,15 +114,18 @@ export default function App() {
   }
 
   const updateArticle = ({ article_id, article }) => {
-    console.log(updateArticle,'UPDATE SUCCESSFUL') 
-    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`, article)
+    console.log(article_id, article) 
+    setSpinnerOn(true)
+    axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`,article)
     .then(res => {
-     console.log(updateArticle,'UPDATE SUCCESSFUL') 
-     setCurrentArticleId(res.data.article.article_id)
+    console.log('UPDATE SUCCESSFUL',res.data.message)
+    getArticles()
+    setMessage(res.data.message)
+     
     //
     //   click edit it populates form values
     //   cancel edit button clears form values 
-    //submit button puts(updates)  the Articles
+    //   submit button puts(updates)  the Articles
     //turns spinner on
     //clears form values
     //turn spinner off
@@ -130,15 +133,18 @@ export default function App() {
 
     // ✨ implement
     // You got this!
+    setSpinnerOn(false)
   })
-  .catch(err => console.log (err))
-  }
-  
 
+  .catch(err => console.log (err))
+   setSpinnerOn(false)
+  }
+  console.log('MESSAGE', message)
+ 
   const deleteArticle = article_id => {
     // ✨ implement
   }
-  console.log(currentArticleId,'HEY')
+  //console.log(currentArticleId,'HEY')
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <>
@@ -159,6 +165,7 @@ export default function App() {
               articles = {articles}
               currentArticleId = {currentArticleId}
               updateArticle = {updateArticle}
+              setCurrentArticleId={setCurrentArticleId}
               
               />
               <Articles getArticles = {getArticles} 

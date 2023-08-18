@@ -9,7 +9,7 @@ export default function Articles(props) {
   // ✨ implement conditional logic: if no token exists
   // we should render a Navigate to login screen (React Router v.6)
    const storage = localStorage.getItem('token')
-   console.log(storage)
+   //console.log(storage)
    if (storage === null)
    props.redirectToLogin()
 
@@ -19,7 +19,7 @@ export default function Articles(props) {
 
     // ✨ grab the articles here, on first render only
   }, [])
-
+  //console.log('ARTICLES', props)
   return (
     // ✨ fix the JSX: replace `Function.prototype` with actual functions
     // and use the articles prop to generate articles
@@ -29,6 +29,7 @@ export default function Articles(props) {
         !props.articles.length
           ? 'No articles yet'
           : props.articles.map(art => {
+            //console.log(art)
             return ( 
               <div className="article" key={art.article_id}>
                 <div>
@@ -37,7 +38,7 @@ export default function Articles(props) {
                   <p>Topic: {art.topic}</p>
                 </div>
                 <div>
-                  <button disabled={false} onClick={()=>{props.setCurrentArticleId(art)}}>Edit</button>
+                  <button disabled={false} onClick={() => props.setCurrentArticleId(art)}>Edit</button>
                   <button disabled={true} onClick={Function.prototype}>Delete</button>
                 </div>
               </div>
