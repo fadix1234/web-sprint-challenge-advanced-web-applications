@@ -15,6 +15,7 @@ export default function Articles(props) {
 
   useEffect(() => {
   props.getArticles()
+  
 
 
     // ✨ grab the articles here, on first render only
@@ -39,7 +40,7 @@ export default function Articles(props) {
                 </div>
                 <div>
                   <button disabled={false} onClick={() => props.setCurrentArticleId(art)}>Edit</button>
-                  <button disabled={true} onClick={Function.prototype}>Delete</button>
+                  <button disabled={false} onClick={props.deleteArticle()}>Delete</button>
                 </div>
               </div>
             )

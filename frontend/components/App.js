@@ -90,7 +90,7 @@ export default function App() {
   //console.log(articles,'CHERRY')
 
   const postArticle = article => {
-    setMessage('')
+    //setMessage('')
     setSpinnerOn(true)
     axiosWithAuth().post('http://localhost:9000/api/articles',article)
     .then(res => {
@@ -119,10 +119,13 @@ export default function App() {
     axiosWithAuth().put(`http://localhost:9000/api/articles/${article_id}`,article)
     .then(res => {
     console.log('UPDATE SUCCESSFUL',res.data.message)
-    getArticles()
     setMessage(res.data.message)
-     
-    //
+    setArticles(articles => { 
+      return articles.map(article => {
+        return article.article_id === currentArticleId ? res.data.article: article  //true after ? if statement and after: else
+      })
+    })
+  
     //   click edit it populates form values
     //   cancel edit button clears form values 
     //   submit button puts(updates)  the Articles
@@ -141,12 +144,26 @@ export default function App() {
   }
   console.log('MESSAGE', message)
  
+
+
+
   const deleteArticle = article_id => {
-    // ✨ implement
+  //   setSpinnerOn(true)
+  //   axiosWithAuth().delete(`http://localhost:9000/api/articles/${article_id}`, article_id)
+  //   .then(res => {
+  //     getArticles()
+  //     setMessage(res.data.message)
+  //  setSpinnerOn(false)
+  //  })
+  //  .catch(err => console.log (err))
+  //  setSpinnerOn(false)
   }
   //console.log(currentArticleId,'HEY')
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
+
+
+
     <>
       <Spinner on = {spinnerOn} />
       <Message message = {message} />
@@ -166,12 +183,15 @@ export default function App() {
               currentArticleId = {currentArticleId}
               updateArticle = {updateArticle}
               setCurrentArticleId={setCurrentArticleId}
+              deleteArticle={deleteArticle}
               
               />
               <Articles getArticles = {getArticles} 
               articles = {articles}
               redirectToLogin = {redirectToLogin}
               setCurrentArticleId={setCurrentArticleId}
+              deleteArticle={deleteArticle}
+              currentArticleId = {currentArticleId}
                />
             </>
           } />
