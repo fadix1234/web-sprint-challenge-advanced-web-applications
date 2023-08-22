@@ -49,7 +49,7 @@ export default function ArticleForm(props) {
       props.postArticle(values);
     }
     setValues(initialFormValues);
-    
+  
   
 
     //evt.preventDefault()
@@ -62,6 +62,13 @@ export default function ArticleForm(props) {
   }
 
   const isDisabled = () => {
+    if(values.title.trim().length >= 1 || values.text.trim().length >= 1){
+     return false
+    }else{
+      return true
+    }
+    //The title and text length must be >= 1, after trimming
+    //The topic needs to be one of three values: React, JavaScript, Node
     // ✨ implement
     // Make sure the inputs have some values
   }

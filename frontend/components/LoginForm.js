@@ -19,10 +19,10 @@ export default function LoginForm(props) {
 
   const onSubmit = evt => {
     evt.preventDefault()
-    if (!isDisabled()) {
+    //if (!isDisabled()) {
     props.login(values)
     // ✨ implement
-  }
+ // }
 }
 
   const isDisabled = () => {
@@ -41,9 +41,7 @@ export default function LoginForm(props) {
   }
   
 
-  // const updateSubmitButtonState = () => {
-  //   submitButton.disabled = isDisabled();
-  // };
+ 
    
    //console.log(values, 'ORANGE')
   return (
